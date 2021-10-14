@@ -7,6 +7,19 @@ module.exports= {
             return callBack(error, result)
         })
     },
+    getid: (id, callBack)=>{
+        pool.query(
+            `select
+                *
+            from
+                bolum
+            where
+                id=?`,
+            [id],
+            (error, result)=>{
+                return callBack(error, result)
+            })
+    },
     post: (data, callBack)=>{
         pool.query('insert into bolum(name,photo) values(?,?)',
         [
