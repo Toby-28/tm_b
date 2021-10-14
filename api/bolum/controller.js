@@ -10,6 +10,14 @@ module.exports= {
             })
         })
     },
+    getid: (req, res)=>{
+        if (error) {
+            console.log(error)
+        }
+        res.json({
+            result: result
+        })
+    },
     post: (req, res)=>{
         post(req.body, (error, result)=>{
             if(error)
