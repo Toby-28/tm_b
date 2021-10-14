@@ -1,4 +1,4 @@
-const { get, post, patch, delet}= require('./b.service')
+const { get, getid, post, patch, delet}= require('./b.service')
 
 module.exports= {
     get: (req, res)=>{
@@ -11,12 +11,15 @@ module.exports= {
         })
     },
     getid: (req, res)=>{
-        if (error) {
-            console.log(error)
-        }
-        res.json({
-            result: result
+        getid(req.params.id, (error, result)=>{
+            if (error) {
+                console.log(error)
+            }
+            res.json({
+                result: result
+            })
         })
+        
     },
     post: (req, res)=>{
         post(req.body, (error, result)=>{
