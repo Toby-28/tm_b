@@ -1,7 +1,7 @@
 const pool= require('../../config/db')
 
 module.exports= {
-    get: (id, callBack)=>{
+    get: (data, callBack)=>{
         pool.query(
             `select
                 *
@@ -16,11 +16,8 @@ module.exports= {
     },
     post: (data, callBack)=>{
         pool.query(
-            `insert into shop()
-             values()`,
-            [
-                data
-            ],
+            `insert into shop(${data.keys})
+             values(${data.values})`,
             (error, result)=>{
                 return callBack(error, result)
             })
@@ -39,7 +36,7 @@ module.exports= {
                 return callBack(error, result)
             })
     },
-    delet: (id, callBack)=>{
+    delet: (data, callBack)=>{
         pool.query(
             `delete from shop where id=?`,
             [id],
