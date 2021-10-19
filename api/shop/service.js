@@ -4,12 +4,11 @@ module.exports= {
     get: (data, callBack)=>{
         pool.query(
             `select
-                *
+                ${data.keys}
             from
                 shop
             where
-                id=?`,
-            [id],
+                ${data.where}=${data.value}`,
             (error, result)=>{
                 return callBack(error, result)
             })
