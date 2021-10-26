@@ -1,4 +1,4 @@
-const {get, post, patch, delet}= require('./service'),
+const {get, post, patch, delet}= require('./s.service'),
     {hash}= require('bcrypt')
 
 module.exports= {
