@@ -15,8 +15,12 @@ module.exports= {
     },
     post: (data, callBack)=>{
         pool.query(
-            `insert into shop(${data.keys})
-             values(${data.values})`,
+            `insert into shop(login,password)
+             values(?,?)`,
+             [
+                 data.login,
+                 data.password
+             ],
             (error, result)=>{
                 return callBack(error, result)
             })

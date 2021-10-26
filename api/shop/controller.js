@@ -1,4 +1,5 @@
-const {get, post, patch, delet}= require('./service')
+const {get, post, patch, delet}= require('./service'),
+    {hash}= require('bcrypt')
 
 module.exports= {
     get: (req, res)=>{
@@ -12,12 +13,16 @@ module.exports= {
         })
     },
     post: (req, res)=>{
-        post(req.body, (error, result)=>{
-            if (error) {
-                console.log(error.sqlMessage+'\n'+error.sql)
-            }
-            res.json({
-                message: result
+        hash((req.body.password).toString(), 10).then((hashed)=>{
+            req.body.password= hashed
+            post(req.body, (error, result)=>{
+                if (error) {
+                    console.log(error.sqlMessage+'\n'+error.sql)
+                }
+                res.json({
+                    error: error,
+                    message: result
+                })
             })
         })
     },
