@@ -15,11 +15,12 @@ module.exports= {
     },
     post: (data, callBack)=>{
         pool.query(
-            `insert into shop(login,password)
-             values(?,?)`,
+            `insert into shop(login,password,phone)
+             values(?,?,?)`,
              [
                  data.login,
-                 data.password
+                 data.password,
+                 data.phone
              ],
             (error, result)=>{
                 return callBack(error, result)
