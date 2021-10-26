@@ -1,6 +1,6 @@
 const router= require('express').Router(),
-    {}= require('./controller')
+    {post}= require('./controller')
 
-router.post('', )
+router.post('', post)
 
 module.exports= router
