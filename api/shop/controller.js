@@ -4,7 +4,7 @@ module.exports= {
     get: (req, res)=>{
         get(req.body, (error, result)=>{
             if (error) {
-                console.log(error)
+                console.log(error.sqlMessage+'\n'+error.sql)
             }
             res.json({
                 result: result
@@ -14,7 +14,7 @@ module.exports= {
     post: (req, res)=>{
         post(req.body, (error, result)=>{
             if (error) {
-                console.log(error)
+                console.log(error.sqlMessage+'\n'+error.sql)
             }
             res.json({
                 message: result
@@ -24,7 +24,7 @@ module.exports= {
     patch: (req, res)=>{
         patch(req.body, (error, result)=>{
             if (error) {
-                console.log(error)
+                console.log(error.sqlMessage+'\n'+error.sql)
             }
             res.json({
                 message: result
@@ -34,7 +34,7 @@ module.exports= {
     delet: (req, res)=>{
         delet(req.body, (error, result)=>{
             if (error) {
-                console.log(error)
+                console.log(error.sqlMessage+'\n'+error.sql)
             }
             res.json({
                 message: result

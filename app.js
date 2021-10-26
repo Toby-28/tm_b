@@ -1,25 +1,22 @@
 require('dotenv').config()
 const express= require('express'),
-     app= express(),
-     bodyparser= require('body-parser'),
-     ads_amin= require('./api/ads_admin/router.js'),
-     ads_fromshops= require('./api/ads_fromshops/router'),
-     sa= require('./superadmin/sa.router'),
-     bolum= require('./api/bolum/router'),
-     katalog= require('./api/katalog/router'),
-     category= require('./api/category/router'),
-     subcategory= require('./api/subcategory/router'),
-     shop= require('./api/shop/router'),
-     product= require('./api/product/router'),
-     product_photo= require('./api/product_photo/router'),
-     shop_katalog= require('./api/shop_katalog/router'),
-     shop_category= require('./api/shop_category/router'),
-     shop_subcategory= require('./api/shop_subcategory/router'),
-     shop_products= require('./api/shop_products/router'),
-     size= require('./api/size/router')
-// const bolum_shop= require('./api/bolum_shop/router')
-// const userRouter= require('./api/users/user.router')
-// const banner= require('./api/banner/ban.router')
+    bodyparser= require('body-parser'),
+    app= express(),
+    ads_amin= require('./api/ads_admin/router.js'),
+    ads_fromshops= require('./api/ads_fromshops/router'),
+    sa= require('./superadmin/sa.router'),
+    bolum= require('./api/bolum/router'),
+    katalog= require('./api/katalog/router'),
+    category= require('./api/category/router'),
+    subcategory= require('./api/subcategory/router'),
+    shop= require('./api/shop/router'),
+    product= require('./api/product/router'),
+    product_photo= require('./api/product_photo/router'),
+    shop_katalog= require('./api/shop_katalog/router'),
+    shop_category= require('./api/shop_category/router'),
+    shop_subcategory= require('./api/shop_subcategory/router'),
+    shop_products= require('./api/shop_products/router'),
+    size= require('./api/size/router')
 
 app.use(bodyparser.urlencoded({extended: true}))
 app.use(express.json())
@@ -39,9 +36,6 @@ app.use('/shop_subcategory', shop_subcategory)
 app.use('/shop_products', shop_products)
 app.use('/size', size)
 app.use('/image', express.static('images'))
-// app.use('/bolum_shop', bolum_shop)
-// app.use('/api/users', userRouter)
-// app.use('/api/banner', banner)
 
 app.listen(process.env.apiport,()=>{
     console.log(`port ${process.env.apiport}`)
