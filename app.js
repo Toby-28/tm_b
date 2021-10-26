@@ -37,6 +37,15 @@ app.use('/shop_products', shop_products)
 app.use('/size', size)
 app.use('/image', express.static('images'))
 
+app.use('/register_seller', (req, res)=>{
+    if (req.body.type=="sowda") {
+        res.redirect('/shop')
+    }
+    if (req.body.type=="hyzmat") {
+        res.redirect('/service_shop')
+    }
+})
+
 app.listen(process.env.apiport,()=>{
     console.log(`port ${process.env.apiport}`)
 })
