@@ -14,12 +14,21 @@ module.exports= {
             })
     },
     post: (data, callBack)=>{
+        if (data.shop_name) {
+            pool.query(`select id from shop where shop_name=?`,[data.shop_name],(error, result)=>{
+                console.log(result[0].id)
+                if (result[0].id) {
+                    return callBack(null, 'Name of shop can not be repeated!')
+                }
+            })
+        }
         pool.query(
-            `insert into shop(login,password,phone)
-             values(?,?,?)`,
+            `insert into shop(login,password,shop_name,phone)
+             values(?,?,?,?)`,
              [
                  data.login,
                  data.password,
+                 data.shop_name,
                  data.phone
              ],
             (error, result)=>{

@@ -10,7 +10,6 @@ module.exports= {
                     console.log(error.sql+'\n'+error.sqlMessage)
                 }
                 res.json({
-                    error: error,
                     result: result
                 })
             })
