@@ -12,6 +12,7 @@ const express= require('express'),
     shop= require('./api/shop/router'),
     product= require('./api/product/router'),
     product_photo= require('./api/product_photo/router'),
+    sellers= require('./api/sellers/router'),
     service_shops= require('./api/service_shops/router'),
     shop_katalog= require('./api/shop_katalog/router'),
     shop_category= require('./api/shop_category/router'),
@@ -31,6 +32,7 @@ app.use('/subcategory', subcategory)
 app.use('/shop', shop)
 app.use('/product', product)
 app.use('/product_photo', product_photo)
+app.use('/sellers', sellers)
 app.use('/service_shops', service_shops)
 app.use('/shop_katalog', shop_katalog)
 app.use('/shop_category', shop_category)
@@ -38,15 +40,6 @@ app.use('/shop_subcategory', shop_subcategory)
 app.use('/shop_products', shop_products)
 app.use('/size', size)
 app.use('/image', express.static('images'))
-
-app.use('/register_seller', (req, res)=>{
-    if (req.body.type=="sowda") {
-        res.redirect('/shop')
-    }
-    if (req.body.type=="hyzmat") {
-        res.redirect('/service_shops')
-    }
-})
 
 app.listen(process.env.apiport,()=>{
     console.log(`port ${process.env.apiport}`)
