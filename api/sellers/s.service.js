@@ -22,10 +22,10 @@ module.exports= {
             set
                 password=?
             where
-                id=?`,
+                login=?`,
             [
                 data.password,
-                data.id
+                data.login
             ],
             (error, result)=>{
                 return cb(error, result)
@@ -43,6 +43,44 @@ module.exports= {
                 data.access,
                 data.id
             ],
+            (error, result)=>{
+                return cb(error, result)
+            })
+    },
+    sellers_get: (data, cb)=>{
+        pool.query(
+            `select
+                *
+            from
+                sellers
+            where
+                login=?`,
+            [
+                data.login
+            ],
+            (error, result)=>{
+                return cb(error, result)
+            })
+    },
+    sup_admin_get: (data, cb)=>{
+        pool.query(
+            `select
+                *
+            from
+                sellers
+            where
+                ${data.key}=?`,
+            [
+                data.value
+            ],
+            (error, result)=>{
+                return cb(error, result)
+            })
+    },
+    delet: (data, cb)=>{
+        pool.query(
+            `delete from sellers where id=?`,
+            [data.id],
             (error, result)=>{
                 return cb(error, result)
             })
