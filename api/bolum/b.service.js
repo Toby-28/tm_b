@@ -11,7 +11,10 @@ module.exports= {
             return cb(error, result)
         })
     },
-    sup_admin_get: cb=>{
+    sup_admin_get: (data, cb)=>{
+        if (data) {
+            console.log(data)
+        }
         pool.query(
             `select *
             from bolum
@@ -20,7 +23,7 @@ module.exports= {
                 return cb(error, result)
             })
     },
-    getid: (id, callBack)=>{
+    getid: (id, cb)=>{
         pool.query(
             `select
                 *
@@ -30,20 +33,20 @@ module.exports= {
                 id=?`,
             [id],
             (error, result)=>{
-                return callBack(error, result)
+                return cb(error, result)
             })
     },
-    post: (data, callBack)=>{
+    post: (data, cb)=>{
         pool.query('insert into bolum(name,photo) values(?,?)',
         [
             data.name,
             data.photo
         ],
         (error, result)=>{
-            return callBack(error, result)
+            return cb(error, result)
         })
     },
-    patch: (data, callBack)=>{
+    patch: (data, cb)=>{
         pool.query('update bolum set name=?, photo=? where id=?',
         [
             data.name,
@@ -51,14 +54,14 @@ module.exports= {
             data.id
         ],
         (error, result)=>{
-            return callBack(error, result)
+            return cb(error, result)
         })
     },
-    delet: (id, callBack)=>{
+    delet: (id, cb)=>{
         pool.query('delete from bolum where id=?',
         [id],
         (error, result)=>{
-            return callBack(error, result)
+            return cb(error, result)
         })
     }
 }

@@ -11,7 +11,7 @@ module.exports= {
         })
     },
     sup_admin_get: (req, res)=>{
-        sup_admin_get((error, result)=>{
+        sup_admin_get(req.body, (error, result)=>{
             if (error){
                 console.log(error.sql+'\n'+error.sqlMessage)
                 return res.json(error)
