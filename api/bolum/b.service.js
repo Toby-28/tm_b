@@ -1,11 +1,24 @@
 const pool= require('../../config/db')
 
 module.exports= {
-    get: callBack=>{
-        pool.query('select * from bolum',
+    get: cb=>{
+        pool.query(
+            `select * 
+            from bolum 
+            where visible=1
+            order by tertip_nomer`,
         (error, result)=>{
-            return callBack(error, result)
+            return cb(error, result)
         })
+    },
+    sup_admin_get: cb=>{
+        pool.query(
+            `select *
+            from bolum
+            order by tertip_nomer`,
+            (error, result)=>{
+                return cb(error, result)
+            })
     },
     getid: (id, callBack)=>{
         pool.query(

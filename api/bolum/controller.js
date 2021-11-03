@@ -1,8 +1,17 @@
-const { get, getid, post, patch, delet}= require('./b.service')
+const { get, sup_admin_get, getid, post, patch, delet}= require('./b.service')
 
 module.exports= {
     get: (req, res)=>{
         get((error, result)=>{
+            if (error){
+                console.log(error.sql+'\n'+error.sqlMessage)
+                return res.json(error)
+            }
+            return res.json(result)
+        })
+    },
+    sup_admin_get: (req, res)=>{
+        sup_admin_get((error, result)=>{
             if (error){
                 console.log(error.sql+'\n'+error.sqlMessage)
                 return res.json(error)
@@ -18,7 +27,6 @@ module.exports= {
             }
             return res.json(result)
         })
-        
     },
     post: (req, res)=>{
         post(req.body, (error, result)=>{
