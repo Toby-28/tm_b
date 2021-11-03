@@ -3,49 +3,48 @@ const { get, getid, post, patch, delet}= require('./b.service')
 module.exports= {
     get: (req, res)=>{
         get((error, result)=>{
-            if (error)
-                console.log('==> ',error)
-            return res.json({
-                result: result
-            })
+            if (error){
+                console.log(error.sql+'\n'+error.sqlMessage)
+                return res.json(error)
+            }
+            return res.json(result)
         })
     },
     getid: (req, res)=>{
         getid(req.params.id, (error, result)=>{
             if (error) {
-                console.log(error)
+                console.log(error.sql+'\n'+error.sqlMessage)
+                return res.json(error)
             }
-            res.json({
-                result: result
-            })
+            return res.json(result)
         })
         
     },
     post: (req, res)=>{
         post(req.body, (error, result)=>{
-            if(error)
-                console.log('==> ',error)
-            return res.json({
-                message: result
-            })
+            if(error){
+                console.log(error.sql+'\n'+error.sqlMessage)
+                return res.json(error)
+            }
+            return res.json(result)
         })
     },
     patch: (req, res)=>{
         patch(req.body, (error, result)=>{
-            if(error)
-                console.log('==> ',error)
-            return res.json({
-                message: result
-            })
+            if(error){
+                console.log(error.sql+'\n'+error.sqlMessage)
+                return res.json(error)
+            }
+            return res.json(result)
         })
     },
     delet: (req, res)=>{
         delet(req.body.id, (error, result)=>{
-            if(error)
-                console.log('==> ',error)
-            return res.json({
-                message: result
-            })
+            if(error){
+                 console.log(error.sql+'\n'+error.sqlMessage)
+                return res.json(error)
+            }
+            return res.json(result)
         })
     },
 }
