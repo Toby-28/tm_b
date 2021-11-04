@@ -8,11 +8,9 @@ module.exports= {
             post(req.body, (error, result)=>{
                 if (error) {
                     console.log(error.sql+'\n'+error.sqlMessage)
+                    return res.json(error)
                 }
-                res.json({
-                    error: error,
-                    message: result
-                })
+                res.json(result)
             })
         })
     },
@@ -22,13 +20,11 @@ module.exports= {
         sup_admin_get(req.body, (error, result)=>{
             if (error) {
                 console.log(error.sql+'\n'+error.sqlMessage)
-                return res.json({
-                    error: error
-                })
+                return res.status(500).json(error)
             }
             if (!result[0]) {
-                return res.json({
-                    error: "Bular yaly ulanyjy yok!"
+                return res.status(404).json({
+                    message: "Bular yaly ulanyjy yok!"
                 })
             }
             compare((req.body.old_password).toString(), result[0].password).then(same=>{
@@ -38,16 +34,14 @@ module.exports= {
                         sellers_patch(req.body, (error, result)=>{
                             if (error) {
                                 console.log(error.sql+'\n'+error.sqlMessage)
+                                return res.status(500).json(error)
                             }
-                            return res.json({
-                                error: error,
-                                message: result
-                            })
+                            return res.json(result)
                         })
                     })
                 }else{
-                    return res.json({
-                    error: "Parol yalnys"
+                    return res.status(500).json({
+                    message: "Parol yalnys"
                     })
                 }
             })
@@ -57,44 +51,36 @@ module.exports= {
         sup_admin_patch(req.body, (error, result)=>{
             if (error) {
                 console.log(error.sql+'\n'+error.sqlMessage)
+                return res.status(500).json(error)
             }
-            res.json({
-                error: error,
-                message: result
-            })
+            res.json(result)
         })
     },
     sellers_get: (req, res)=>{
         sellers_get(req.body, (error, result)=>{
             if (error) {
                 console.log(error.sql+'\n'+error.sqlMessage)
+                return res.status(500).json(error)
             }
-            res.json({
-                error: error,
-                message: result
-            })
+            res.json(result)
         })
     },
     sup_admin_get: (req, res)=>{
         sup_admin_get(req.body, (error, result)=>{
             if (error) {
                 console.log(error.sql+'\n'+error.sqlMessage)
+                return res.status(500).json(error)
             }
-            res.json({
-                error: error,
-                message: result
-            })
+            res.json(result)
         })
     },
     delet: (req, res)=>{
         delet(req.body, (error, result)=>{
             if (error) {
                 console.log(error.sql+'\n'+error.sqlMessage)
+                return res.status(500).json(error)
             }
-            res.json({
-                error: error,
-                message: result
-            })
+            res.json(result)
         })
     }
 }
