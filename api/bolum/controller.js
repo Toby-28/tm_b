@@ -29,6 +29,7 @@ module.exports= {
         })
     },
     post: (req, res)=>{
+        req.body.photo= req.file.filename
         post(req.body, (error, result)=>{
             if(error){
                 console.log(error.sql+'\n'+error.sqlMessage)

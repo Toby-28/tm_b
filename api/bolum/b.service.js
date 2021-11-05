@@ -12,9 +12,6 @@ module.exports= {
         })
     },
     sup_admin_get: (data, cb)=>{
-        if (data) {
-            console.log(data)
-        }
         pool.query(
             `select *
             from bolum
@@ -37,10 +34,11 @@ module.exports= {
             })
     },
     post: (data, cb)=>{
-        pool.query('insert into bolum(name,photo) values(?,?)',
+        pool.query('insert into bolum(bolum_name,bolum_nameru,photo) values(?,?,?)',
         [
-            data.name,
-            data.photo
+            data.bolum_name,
+            data.bolum_nameru,
+            data.photo,
         ],
         (error, result)=>{
             return cb(error, result)
