@@ -12,7 +12,7 @@ const multer = require('multer'),
         if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
             callBack(null, true)
         } else {
-            callBack('Unsupported files', false)
+            callBack('Unsupported file', false)
         }
     },
     upload = multer({

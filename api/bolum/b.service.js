@@ -44,12 +44,11 @@ module.exports= {
             return cb(error, result)
         })
     },
-    patch: (data, cb)=>{
-        pool.query('update bolum set name=?, photo=? where id=?',
+    patch: (key, value, id, cb)=>{
+        pool.query(`update bolum set ${key}=? where id=?`,
         [
-            data.name,
-            data.photo,
-            data.id
+            value,
+            id
         ],
         (error, result)=>{
             return cb(error, result)

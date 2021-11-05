@@ -39,13 +39,21 @@ module.exports= {
         })
     },
     patch: (req, res)=>{
-        patch(req.body, (error, result)=>{
-            if(error){
-                console.log(error.sql+'\n'+error.sqlMessage)
-                return res.json(error)
-            }
-            return res.json(result)
+        if (req.file) {
+            req.body.photo= req.file.filename
+        }
+        let keys= Object.keys(req.body)
+        let results
+        keys.forEach(element => {
+            patch(element, req.body[element], req.params.id, (error, result)=>{
+                if(error){
+                    console.log(error.sql+'\n'+error.sqlMessage)
+                    return res.json(error)
+                }
+                results= result
+            })
         })
+        return res.json(results)
     },
     delet: (req, res)=>{
         delet(req.body.id, (error, result)=>{
