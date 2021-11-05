@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express= require('express'),
     bodyparser= require('body-parser'),
+    cors= require('cors'),
     app= express(),
     ads_amin= require('./api/ads_admin/router.js'),
     ads_fromshops= require('./api/ads_fromshops/router'),
@@ -22,6 +23,7 @@ const express= require('express'),
 
 app.use(bodyparser.urlencoded({extended: true}))
 app.use(express.json())
+app.use(cors())
 app.use('/ads_admin', ads_amin)
 app.use('/ads_fromshops', ads_fromshops)
 app.use('/sa', sa)
