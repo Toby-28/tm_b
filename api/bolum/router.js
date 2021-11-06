@@ -7,6 +7,6 @@ router.get('/sup_admin', sup_admin_get)
 router.get('/:id', getid)
 router.post('', upload.single('bolum_photo'), post)
 router.patch('/:id', upload.single('bolum_photo'), patch)
-router.delete('', delet)
+router.delete('/:id', delet)
 
 module.exports= router 
