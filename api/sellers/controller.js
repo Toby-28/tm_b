@@ -75,7 +75,7 @@ module.exports= {
         })
     },
     delet: (req, res)=>{
-        delet(req.body, (error, result)=>{
+        delet(req.params, (error, result)=>{
             if (error) {
                 console.log(error.sql+'\n'+error.sqlMessage)
                 return res.status(500).json(error)

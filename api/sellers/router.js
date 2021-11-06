@@ -6,6 +6,6 @@ router.patch('/seller', sellers_patch)
 router.patch('/sup_admin', sup_admin_patch)
 router.get('/seller', sellers_get)
 router.get('/sup_admin', sup_admin_get)
-router.delete('', delet)
+router.delete('/:id', delet)
 
 module.exports= router
