@@ -1,7 +1,8 @@
 const router= require('express').Router()
-const { get, getId, post, patch, delet}= require('./controller')
+const { get, sup_admin_get, getId, post, patch, delet}= require('./controller')
 
 router.get('', get)
+router.get('/sup_admin', sup_admin_get)
 router.get('/id', getId)
 router.post('', post)
 router.patch('', patch)

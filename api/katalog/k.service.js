@@ -1,32 +1,42 @@
 const pool= require('../../config/db')
 
 module.exports= {
-    get: callBack=>{
+    get: (data, cb)=>{
         pool.query(
             `select 
-                bolum.bolum_name, 
-                katalog.katalog_name,
-                katalog.id
-            from 
-                bolum, 
+                *
+            from
                 katalog 
             where 
-                katalog.bolum_id=bolum.id`, 
+                bolum_id=${data.bolum_id} and
+                visible=1
+            order by tertip_nomer`, 
         (error, result)=>{
-            return callBack(error, result)
+            return cb(error, result)
         })
     },
-    getId: (data, callBack)=>{
+    sup_admin_get: cb=>{
+        pool.query(
+            `select
+                *
+            from
+                katalog
+            order by tertip_nomer`,
+            (error, result)=>{
+                return cb(error, result)
+            })
+    },
+    getId: (data, cb)=>{
         pool.query(
             `select * from katalog where bolum_id=?`,
             [
                 data.bolum_id
             ],
             (error, result)=>{
-                return callBack(error, result)
+                return cb(error, result)
             })
     },
-    post: (data, callBack)=>{
+    post: (data, cb)=>{
         pool.query(
             `insert into katalog(bolum_id,katalog_name) 
             values((select id from bolum where bolum_name=?),?)`,
@@ -35,10 +45,10 @@ module.exports= {
             data.katalog_name
         ],
         (error, result)=>{
-            return callBack(error, result)
+            return cb(error, result)
         })
     },
-    patch: (data, callBack)=>{
+    patch: (data, cb)=>{
         pool.query(
             `update 
                 katalog 
@@ -53,14 +63,14 @@ module.exports= {
             data.id
         ],
         (error, result)=>{
-            return callBack(error, result)
+            return cb(error, result)
         })
     },
-    delet: (id, callBack)=>{
+    delet: (id, cb)=>{
         pool.query('delete from katalog where id=?',
         [id],
         (error, result)=>{
-            return callBack(error, result)
+            return cb(error, result)
         })
     }
 }
