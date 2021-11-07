@@ -16,7 +16,7 @@ module.exports={
             then(same=>{
                 if (same) {
                     result.password= undefined
-                    const token= sign({results: result},'hushnud',{expiresIn: '1h'})
+                    const token= sign({results: result},process.env.TOKENSECRETKEY,{expiresIn: process.env.TOKENEXPIREAT})
                     return res.json({
                         message: 'login success',
                         token: token
