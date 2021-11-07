@@ -1,24 +1,27 @@
 const pool=require('../../config/db')
 
 module.exports= {
-    get: (callBack)=>{
+    get: (data, cb)=>{
         pool.query(
-            `select 
+            `select
                 bolum.bolum_name,
                 katalog.katalog_name,
-                category.category_name,
-                category.id 
+                category.*
             from
                 bolum,
                 katalog,
                 category
             where
-                category.bolum_id=bolum.id and category.katalog_id=katalog.id`,
+                category.bolum_id=${data.bolum_id} and 
+                bolum.id=${data.bolum_id} and 
+                category.katalog_id=${data.category_id} and
+                katalog.id=${data.category_id} and
+                category.visible=1`,
         (error, result)=>{
-            return callBack(error, result)
+            return cb(error, result)
         })
     },
-    getId: (data, callBack)=>{
+    getId: (data, cb)=>{
         pool.query(
             `select * from category where bolum_id=? and katalog_id=?`,
             [
@@ -26,10 +29,10 @@ module.exports= {
                 data.katalog_id
             ],
             (error, result)=>{
-                return callBack(error, result)
+                return cb(error, result)
             })
     },
-    post: (data, callBack)=>{
+    post: (data, cb)=>{
         pool.query(
             `insert into category(bolum_id,katalog_id,category_name) 
             values((select id from bolum where bolum_name=?), (select id from katalog where katalog_name=?), ?)`,
@@ -39,10 +42,10 @@ module.exports= {
             data.category_name
         ],
         (error, result)=>{
-            return callBack(error, result)
+            return cb(error, result)
         })
     },
-    patch: (data, callBack)=>{
+    patch: (data, id, cb)=>{
         pool.query(
             `update 
                 category 
@@ -56,17 +59,17 @@ module.exports= {
             data.bolum_name,
             data.katalog_name,
             data.category_name,
-            data.id
+            id
         ],
         (error, result)=>{
-            return callBack(error, result)
+            return cb(error, result)
         })
     },
-    delet: (id, callBack)=>{
+    delet: (id, cb)=>{
         pool.query('delete from category where id=?',
         [id],
         (error, result)=>{
-            return callBack(error, result)
+            return cb(error, result)
         })
     }
 }
