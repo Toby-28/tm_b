@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2021 at 12:51 PM
+-- Generation Time: Nov 08, 2021 at 03:28 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -155,10 +155,10 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `bolum_id`, `katalog_id`, `category_name`, `category_nameRU`, `category_photo`, `visible`) VALUES
-(2, 1, 2, 'between', '', '', 0),
-(3, 3, 1, 'all', '', '', 0),
-(5, 3, 2, 'she', '', '', 0),
-(8, 1, 2, 'weall', '', '', 0);
+(2, 1, 2, 'between', '', '', 1),
+(3, 5, 1, 'all', '', '', 1),
+(5, 5, 2, 'she', '', '', 1),
+(8, 1, 2, 'weall', '', '', 1);
 
 -- --------------------------------------------------------
 
@@ -441,11 +441,9 @@ CREATE TABLE `sellers` (
 --
 
 INSERT INTO `sellers` (`id`, `login`, `password`, `type`, `shop_id`, `Access`) VALUES
-(1, 'sadyyan', '$2b$10$InMf8HOedcxeQ8W5qTyFnOilID9aXApYvYRqTG3fxRAdBhha7aLmG', 'sowda', 1, 0),
-(2, 'jasur', '$2b$10$WhLTzGIZmfMZCufUExkTquS63qclYRjWeaQ87.9LepzmMvqpLX.fm', 'sowda', 2, 0),
-(4, 'murad', '$2b$10$FNB5ciEXOw1UHrPULu3gO.SiWwDrGRXUy3Momikehpt9kDSe828by', 'hyzmat', 3, 0),
-(6, 'muradik', '$2b$10$kTDAEUCLR9Nu8GmAYeiFX.GnC/zlGknH2qH4HSoDKO9c5H7TBmP6C', 'hyzmat', 3, 0),
-(8, 'muradk', '$2b$10$vHz1pArmKbOYj1FPijDbt.jrclS9lW6cSMQxlVU1X780XZcv33sn6', 'hyzmat', 3, 0);
+(1, 'sadyyan', '$2b$10$InMf8HOedcxeQ8W5qTyFnOilID9aXApYvYRqTG3fxRAdBhha7aLmG', 'sowda', 1, 1),
+(2, 'jasur', '$2b$10$WhLTzGIZmfMZCufUExkTquS63qclYRjWeaQ87.9LepzmMvqpLX.fm', 'sowda', 2, 1),
+(4, 'murad', '$2b$10$FNB5ciEXOw1UHrPULu3gO.SiWwDrGRXUy3Momikehpt9kDSe828by', 'hyzmat', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -532,18 +530,18 @@ CREATE TABLE `shop` (
   `website` varchar(50) CHARACTER SET utf8mb4 NOT NULL,
   `insta` varchar(200) CHARACTER SET utf8mb4 NOT NULL,
   `imo` varchar(12) CHARACTER SET utf8mb4 NOT NULL,
-  `vip` tinyint(1) NOT NULL,
+  `vip` tinyint(1) DEFAULT 0,
   `Access` tinyint(1) NOT NULL DEFAULT 0,
   `owner_name` varchar(50) NOT NULL,
   `owner_familya` varchar(60) NOT NULL,
   `owner_ochestvo` varchar(60) NOT NULL,
   `owners_phone` varchar(20) NOT NULL,
   `second_phone` varchar(20) NOT NULL,
-  `dostawka` tinyint(1) NOT NULL,
+  `dostawka` tinyint(1) NOT NULL DEFAULT 0,
   `mugt_dostawka` tinyint(1) NOT NULL,
-  `min_dostawka_toleg` int(6) NOT NULL,
+  `min_dostawka_toleg` int(6) NOT NULL DEFAULT 0,
   `dostawka_tolegi` int(4) NOT NULL,
-  `gelip_almak` tinyint(1) NOT NULL
+  `gelip_almak` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -551,8 +549,8 @@ CREATE TABLE `shop` (
 --
 
 INSERT INTO `shop` (`id`, `shop_name`, `description`, `descriptionRU`, `phone`, `address`, `adressRU`, `photo`, `modified`, `email`, `website`, `insta`, `imo`, `vip`, `Access`, `owner_name`, `owner_familya`, `owner_ochestvo`, `owners_phone`, `second_phone`, `dostawka`, `mugt_dostawka`, `min_dostawka_toleg`, `dostawka_tolegi`, `gelip_almak`) VALUES
-(1, 'gulzemin', 'Yanymyzdaky sowda merkez!', '', '+99365616320', 'Taslamada', '', 'c://', '2021-08-18 18:18:33', 'gulzemin@g.tm', 'gulzemin.com', 'serg.vfdsgw/[p2lw', 'imo adress', 1, 0, '', '', '', '', '', 0, 0, 0, 0, 0),
-(2, 'alperi', 'gowysy girme', '', '+9936xxxxxxx', 'niredir bir yer', '', 'c://', '2021-08-25 19:07:15', 'yalkym.com@g.tm', 'yalkym.com', 'insta address', 'imo address', 1, 0, '', '', '', '', '', 0, 0, 0, 0, 0);
+(1, 'gulzemin', 'Yanymyzdaky sowda merkez!', '', '+99365616320', 'Taslamada', '', 'c://', '2021-08-18 18:18:33', 'gulzemin@g.tm', 'gulzemin.com', 'serg.vfdsgw/[p2lw', 'imo adress', 1, 0, '', '', '', '63', '', 0, 0, 0, 0, 0),
+(2, 'alperi', 'gowysy girme', '', '+9936xxxxxxx', 'niredir bir yer', '', 'c://', '2021-08-25 19:07:15', 'yalkym.com@g.tm', 'yalkym.com', 'insta address', 'imo address', 1, 0, '', '', '', '62', '', 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -734,17 +732,18 @@ CREATE TABLE `subcategory` (
   `katalog_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `subcategory_name` varchar(100) NOT NULL,
-  `subcategory_nameRU` varchar(250) NOT NULL
+  `subcategory_nameRU` varchar(250) NOT NULL,
+  `visible` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `subcategory`
 --
 
-INSERT INTO `subcategory` (`id`, `bolum_id`, `katalog_id`, `category_id`, `subcategory_name`, `subcategory_nameRU`) VALUES
-(1, 1, 2, 2, 'coca-cola', ''),
-(2, 1, 2, 2, 'zip', ''),
-(3, 3, 5, 6, 'malakasos', '');
+INSERT INTO `subcategory` (`id`, `bolum_id`, `katalog_id`, `category_id`, `subcategory_name`, `subcategory_nameRU`, `visible`) VALUES
+(1, 1, 2, 2, 'coca-cola', '', 1),
+(2, 1, 2, 2, 'zip', '', 1),
+(3, 13, 5, 8, 'malakasos', '', 1);
 
 -- --------------------------------------------------------
 
@@ -975,7 +974,8 @@ ALTER TABLE `saylanan_items`
 --
 ALTER TABLE `sellers`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `login` (`login`) USING BTREE;
+  ADD UNIQUE KEY `login` (`login`) USING BTREE,
+  ADD UNIQUE KEY `shop_id` (`shop_id`);
 
 --
 -- Indexes for table `service_catalog`
@@ -1048,7 +1048,8 @@ ALTER TABLE `size`
 -- Indexes for table `subcategory`
 --
 ALTER TABLE `subcategory`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `subcategory_name` (`subcategory_name`);
 
 --
 -- Indexes for table `users`
