@@ -3,7 +3,7 @@ const router= require('express').Router(),
 
 router.get('', get)
 router.post('', post)
-router.patch('', patch)
-router.delete('', delet)
+router.patch('/:id', patch)
+router.delete('/:id', delet)
 
 module.exports= router

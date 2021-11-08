@@ -1,48 +1,42 @@
 const {get, post, patch, delet}= require('./s.service'),
-    {hash}= require('bcrypt')
+    {}= require('bcrypt')
 
 module.exports= {
     get: (req, res)=>{
         get(req.body, (error, result)=>{
             if (error) {
                 console.log(error.sqlMessage+'\n'+error.sql)
+                return res.json(error)
             }
-            res.json({
-                result: result
-            })
+            return res.json(result)
         })
     },
     post: (req, res)=>{
-        hash((req.body.password).toString(), 10).then((hashed)=>{
-            req.body.password= hashed
-            post(req.body, (error, result)=>{
-                if (error) {
-                    console.log(error.sqlMessage+'\n'+error.sql)
-                }
-                res.json({
-                    message: result
-                })
-            })
+        post(req.body, (error, result)=>{
+            if (error) {
+                console.log(error.sqlMessage+'\n'+error.sql)
+                return res.json(error)
+            }
+            req.body.shop_name= result.insertId
+            res.redirect('/sellers')
         })
     },
     patch: (req, res)=>{
-        patch(req.body, (error, result)=>{
+        patch(req.body, req.params.id, (error, result)=>{
             if (error) {
                 console.log(error.sqlMessage+'\n'+error.sql)
+                return res.json(error)
             }
-            res.json({
-                message: result
-            })
+            return res.json(result)
         })
     },
     delet: (req, res)=>{
-        delet(req.body, (error, result)=>{
+        delet(req.params.id, (error, result)=>{
             if (error) {
                 console.log(error.sqlMessage+'\n'+error.sql)
+                return res.json(error)
             }
-            res.json({
-                message: result
-            })
+            return res.json(result)
         })
     },
 }

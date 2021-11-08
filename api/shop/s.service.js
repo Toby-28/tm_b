@@ -1,7 +1,7 @@
 const pool= require('../../config/db')
 
 module.exports= {
-    get: (data, callBack)=>{
+    get: (data, cb)=>{
         pool.query(
             `select
                 ${data.keys}
@@ -10,51 +10,40 @@ module.exports= {
             where
                 ${data.where}=${data.value}`,
             (error, result)=>{
-                return callBack(error, result)
+                return cb(error, result)
             })
     },
-    post: (data, callBack)=>{
-        if (data.shop_name) {
-            pool.query(`select id from shop where shop_name=?`,[data.shop_name],(error, result)=>{
-                console.log(result[0].id)
-                if (result[0].id) {
-                    return callBack(null, 'Name of shop can not be repeated!')
-                }
-            })
-        }
+    post: (data, cb)=>{
         pool.query(
-            `insert into shop(login,password,shop_name,phone)
-             values(?,?,?,?)`,
+            `insert into shop(shop_name)
+             values(?)`,
              [
-                 data.login,
-                 data.password,
-                 data.shop_name,
-                 data.phone
+                data.shop_name
              ],
             (error, result)=>{
-                return callBack(error, result)
+                return cb(error, result)
             })
     },
-    patch: (data, callBack)=>{
+    patch: (data, id, cb)=>{
         pool.query(
             `update shop
              set
                 ?
             where
-                id=?`,
+                id=${id}`,
             [
                 data
             ],
             (error, result)=>{
-                return callBack(error, result)
+                return cb(error, result)
             })
     },
-    delet: (data, callBack)=>{
+    delet: (id, cb)=>{
         pool.query(
             `delete from shop where id=?`,
             [id],
             (error, result)=>{
-                return callBack(error, result)
+                return cb(error, result)
             })
     }
 }

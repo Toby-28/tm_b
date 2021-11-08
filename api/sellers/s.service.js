@@ -4,12 +4,12 @@ module.exports= {
     post: (data, cb)=>{
         pool.query(
             `insert into sellers(login, password, type, shop_id)
-            values(?,?,?,?)`,
+            values(?,?,?,(select id from shop where shop_name=?))`,
             [
                 data.login,
                 data.password,
                 data.type,
-                data.shop_id
+                data.shop_name
             ],
             (error, result)=>{
                 return cb(error, result)
