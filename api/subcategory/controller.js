@@ -2,48 +2,48 @@ const { get, getId, post, patch, delet}= require('./subcategory.service')
  
 module.exports= {
     get: (req, res)=>{
-        get((error, result)=>{
-            if(error)
-                console.log('==> ',error)
-            return res.json({
-                result: result
-            })
+        get(req.body, (error, result)=>{
+            if(error){
+                console.log(error.sql+'\n'+error.sqlMessage)
+                return res.status(400).json(error)
+            }
+            return res.json(result)
         })
     },
     getId: (req, res)=>{
         getId(req.body, (error, result)=>{
-            if(error)
-                console.log(error)
-            return res.json({
-                result: result
-            })
+            if(error){
+                console.log(error.sql+'\n'+error.sqlMessage)
+                return res.status(400).json(error)
+            }
+            return res.json(result)
         })
     },
     post: (req, res)=>{
         post(req.body, (error, result)=>{
-            if(error)
-                console.log('==> ',error)
-            return res.json({
-                message: result
-            })
+            if(error){
+                console.log(error.sql+'\n'+error.sqlMessage)
+                return res.status(400).json(error)
+            }
+            return res.json(result)
         })
     },
     patch: (req, res)=>{
-        patch(req.body,(error, result)=>{
-            if(error)
-                console.log('==> '+error)
-            return res.json({
-                message: result
-            })
+        patch(req.body, req.params.id, (error, result)=>{
+            if(error){
+                console.log(error.sql+'\n'+error.sqlMessage)
+                return res.status(400).json(error)
+            }
+            return res.json(result)
         })
     },
     delet: (req, res)=>{
-        delet(req.body.id, (error, result)=>{
-            if(error)
-                console.log('==> '+error)
-            return res.json({
-                message: result
-            })
+        delet(req.params.id, (error, result)=>{
+            if(error){
+                console.log(error.sql+'\n'+error.sqlMessage)
+                return res.status(400).json(error)
+            }
+            return res.json(result)
         })
     }
 }

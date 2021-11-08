@@ -1,26 +1,31 @@
 const pool=require('../../config/db')
 
 module.exports= {
-    get: (callBack)=>{
+    get: (data, cb)=>{
         pool.query(
             `select 
                 bolum.bolum_name,
                 katalog.katalog_name,
                 category.category_name,
-                subcategory.subcategory_name,
-                subcategory.id 
+                subcategory.*
             from
                 bolum,
                 katalog,
                 category,
                 subcategory
             where
-                subcategory.bolum_id=bolum.id and subcategory.katalog_id=katalog.id and subcategory.category_id=category.id`,
+                subcategory.bolum_id=${data.bolum_id} and 
+                bolum.id=${data.bolum_id} and 
+                subcategory.katalog_id=${data.katalog_id} and 
+                katalog.id=${data.katalog_id} and 
+                subcategory.category_id=${data.category_id} and
+                category.id=${data.category_id} and
+                subcategory.visible=1`,
         (error, result)=>{
-            return callBack(error, result)
+            return cb(error, result)
         })
     },
-    getId: (data, callBack)=>{
+    getId: (data, cb)=>{
         pool.query(
             `select * from subcategory where bolum_id=? and katalog_id=? and category_id=?`,
             [
@@ -29,10 +34,10 @@ module.exports= {
                 data.category_id
             ],
             (error, result)=>{
-                return callBack(error, result)
+                return cb(error, result)
             })
     },
-    post: (data, callBack)=>{
+    post: (data, cb)=>{
         pool.query(
             `insert into subcategory(bolum_id,katalog_id,category_id,subcategory_name) 
             values(
@@ -47,10 +52,10 @@ module.exports= {
             data.subcategory_name
         ],
         (error, result)=>{
-            return callBack(error, result)
+            return cb(error, result)
         })
     },
-    patch: (data, callBack)=>{
+    patch: (data, id, cb)=>{
         pool.query(
             `update 
                 subcategory 
@@ -66,17 +71,17 @@ module.exports= {
             data.katalog_name,
             data.category_name,
             data.subcategory_name,
-            data.id
+            id
         ],
         (error, result)=>{
-            return callBack(error, result)
+            return cb(error, result)
         })
     },
-    delet: (id, callBack)=>{
+    delet: (id, cb)=>{
         pool.query('delete from category where id=?',
         [id],
         (error, result)=>{
-            return callBack(error, result)
+            return cb(error, result)
         })
     }
 }
