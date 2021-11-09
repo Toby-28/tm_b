@@ -1,11 +1,11 @@
-const router= require('express').Router()
-const { get, sup_admin_get, getId, post, patch, delet}= require('./controller')
+const router= require('express').Router(),
+    { get, sup_admin_get, post, patch, delet}= require('./controller'),
+    {upload}= require('../../tools/image_uploader')
 
 router.get('', get)
 router.get('/sup_admin', sup_admin_get)
-router.get('/id', getId)
-router.post('', post)
-router.patch('', patch)
-router.delete('', delet)
+router.post('', upload.single('katalog_photo'), post)
+router.patch('/:id', upload.single('katalog_photo'), patch)
+router.delete('/:id', delet)
 
 module.exports= router

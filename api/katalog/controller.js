@@ -1,13 +1,13 @@
-const { get, sup_admin_get, getId, post, patch, delet}= require('./k.service')
+const { get, sup_admin_get, post, patch, delet}= require('./k.service')
 
 module.exports= {
     get: (req, res)=>{
         get(req.body, (error, result)=>{
-            if (error)
-                console.log('==> ',error)
-            return res.json({
-                result: result
-            })
+            if (error){
+                console.log(error.sql+'\n'+error.sqlMessage)
+                return res.status(400).json(error)
+            }
+            return res.json(result)
         })
     },
     sup_admin_get: (req, res)=>{
@@ -19,40 +19,40 @@ module.exports= {
             return res.json(result)
         })
     },
-    getId: (req, res)=>{
-        getId(req.body, (error, result)=>{
-            if(error)
-                console.log(error)
-            return res.json({
-                result: result
-            })
-        })
-    },
     post: (req, res)=>{
+        req.body.photo= req.file.filename
         post(req.body, (error, result)=>{
-            if(error)
-                console.log('==> ',error)
-            return res.json({
-                message: result
-            })
+            if (error){
+                console.log(error.sql+'\n'+error.sqlMessage)
+                return res.status(400).json(error)
+            }
+            return res.json(result)
         })
     },
     patch: (req, res)=>{
-        patch(req.body, (error, result)=>{
-            if(error)
-                console.log('==> ',error)
-            return res.json({
-                message: result
+        if (req.file) {
+            req.body.photo= req.file.filename
+        }
+        let keys= Object.keys(req.body)
+        let results
+        keys.forEach(element=>{
+            patch(element, req.body[element], req.params.id, (error, result)=>{
+                if (error){
+                    console.log(error.sql+'\n'+error.sqlMessage)
+                    return res.status(400).json(error)
+                }
+                results= result
             })
         })
+        return res.json(results)
     },
     delet: (req, res)=>{
-        delet(req.body.id, (error, result)=>{
-            if(error)
-                console.log('==> ',error)
-            return res.json({
-                message: result
-            })
+        delet(req.params.id, (error, result)=>{
+            if (error){
+                console.log(error.sql+'\n'+error.sqlMessage)
+                return res.status(400).json(error)
+            }
+            return res.json(result)
         })
     },
 }
