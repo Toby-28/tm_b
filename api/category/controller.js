@@ -1,4 +1,4 @@
-const { get, getId, post, patch, delet}= require('./category.service')
+const { get, sup_admin_get, post, patch, delet}= require('./category.service')
 
 module.exports= {
     get: (req, res)=>{
@@ -10,8 +10,8 @@ module.exports= {
             return res.json(result)
         })
     },
-    getId: (req, res)=>{
-        getId(req.body, (error, result)=>{
+    sup_admin_get: (req, res)=>{
+        sup_admin_get((error, result)=>{
             if(error){
                 console.log(error.sql+'\n'+error.sqlMessage)
                 return res.status(400).json(error)
@@ -20,6 +20,7 @@ module.exports= {
         })
     },
     post: (req, res)=>{
+        req.body.photo= req.file.filename
         post(req.body, (error, result)=>{
             if(error){
                 console.log(error.sql+'\n'+error.sqlMessage)
@@ -29,13 +30,21 @@ module.exports= {
         })
     },
     patch: (req, res)=>{
-        patch(req.body, req.params.id, (error, result)=>{
-            if(error){
-                console.log(error.sql+'\n'+error.sqlMessage)
-                return res.status(400).json(error)
-            }
-            return res.json(result)
+        if (req.file) {
+            req.body.photo= req.file.filename
+        }
+        let key= Object.keys(req.body)
+        let results
+        key.forEach(element=>{
+            patch(element, req.body[element], req.params.id, (error, result)=>{
+                if(error){
+                    console.log(error.sql+'\n'+error.sqlMessage)
+                    return res.status(400).json(error)
+                }
+                results= result
+            })
         })
+        return res.json(results)
     },
     delet: (req, res)=>{
         delet(req.params.id, (error, result)=>{

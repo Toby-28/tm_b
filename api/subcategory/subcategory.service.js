@@ -25,52 +25,38 @@ module.exports= {
             return cb(error, result)
         })
     },
-    getId: (data, cb)=>{
+    sup_admin_get: (cb)=>{
         pool.query(
-            `select * from subcategory where bolum_id=? and katalog_id=? and category_id=?`,
-            [
-                data.bolum_id,
-                data.katalog_id,
-                data.category_id
-            ],
+            `select * from subcategory`,
             (error, result)=>{
                 return cb(error, result)
             })
     },
     post: (data, cb)=>{
         pool.query(
-            `insert into subcategory(bolum_id,katalog_id,category_id,subcategory_name) 
-            values(
-                (select id from bolum where bolum_name=?), 
-                (select id from katalog where katalog_name=?), 
-                (select id from category where category_name=?), 
-                ?)`,
+            `insert into subcategory(bolum_id,katalog_id,category_id,subcategory_name,subcategory_nameru) 
+            values(?,?,?,?,?)`,
         [
-            data.bolum_name,
-            data.katalog_name,
-            data.category_name,
-            data.subcategory_name
+            data.bolum_id,
+            data.katalog_id,
+            data.category_id,
+            data.subcategory_name,
+            data.subcategory_nameru
         ],
         (error, result)=>{
             return cb(error, result)
         })
     },
-    patch: (data, id, cb)=>{
+    patch: (key, value, id, cb)=>{
         pool.query(
             `update 
                 subcategory 
             set 
-                bolum_id=(select id from bolum where bolum_name=?),
-                katalog_id=(select id from katalog where katalog_name=?),
-                category_id=(select id from category where category_name=?),
-                subcategory_name=?
+                ${key}=?
             where 
                 id=?`,
         [
-            data.bolum_name,
-            data.katalog_name,
-            data.category_name,
-            data.subcategory_name,
+            value,
             id
         ],
         (error, result)=>{
@@ -78,7 +64,7 @@ module.exports= {
         })
     },
     delet: (id, cb)=>{
-        pool.query('delete from category where id=?',
+        pool.query('delete from subcategory where id=?',
         [id],
         (error, result)=>{
             return cb(error, result)

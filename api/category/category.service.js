@@ -14,51 +14,45 @@ module.exports= {
             where
                 category.bolum_id=${data.bolum_id} and 
                 bolum.id=${data.bolum_id} and 
-                category.katalog_id=${data.category_id} and
-                katalog.id=${data.category_id} and
+                category.katalog_id=${data.katalog_id} and
+                katalog.id=${data.katalog_id} and
                 category.visible=1`,
         (error, result)=>{
             return cb(error, result)
         })
     },
-    getId: (data, cb)=>{
+    sup_admin_get: (cb)=>{
         pool.query(
-            `select * from category where bolum_id=? and katalog_id=?`,
-            [
-                data.bolum_id,
-                data.katalog_id
-            ],
+            `select * from category`,
             (error, result)=>{
                 return cb(error, result)
             })
     },
     post: (data, cb)=>{
         pool.query(
-            `insert into category(bolum_id,katalog_id,category_name) 
-            values((select id from bolum where bolum_name=?), (select id from katalog where katalog_name=?), ?)`,
+            `insert into category(bolum_id,katalog_id,category_name,category_nameru,photo) 
+            values(?,?,?,?,?)`,
         [
-            data.bolum_name,
-            data.katalog_name,
-            data.category_name
+            data.bolum_id,
+            data.katalog_id,
+            data.category_name,
+            data.category_nameru,
+            data.photo
         ],
         (error, result)=>{
             return cb(error, result)
         })
     },
-    patch: (data, id, cb)=>{
+    patch: (key, value, id, cb)=>{
         pool.query(
             `update 
                 category 
             set 
-                bolum_id=(select id from bolum where bolum_name=?),
-                katalog_id=(select id from katalog where katalog_name=?),
-                category_name=? 
+                ${key}=?
             where 
                 id=?`,
         [
-            data.bolum_name,
-            data.katalog_name,
-            data.category_name,
+            value,
             id
         ],
         (error, result)=>{
