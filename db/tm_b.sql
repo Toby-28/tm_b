@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2021 at 03:28 PM
+-- Generation Time: Nov 09, 2021 at 12:50 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -146,19 +146,19 @@ CREATE TABLE `category` (
   `katalog_id` int(11) NOT NULL,
   `category_name` varchar(100) CHARACTER SET utf8 NOT NULL,
   `category_nameRU` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `category_photo` varchar(250) CHARACTER SET utf8 NOT NULL,
-  `visible` tinyint(1) NOT NULL
+  `photo` varchar(250) CHARACTER SET utf8 NOT NULL,
+  `visible` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`id`, `bolum_id`, `katalog_id`, `category_name`, `category_nameRU`, `category_photo`, `visible`) VALUES
-(2, 1, 2, 'between', '', '', 1),
+INSERT INTO `category` (`id`, `bolum_id`, `katalog_id`, `category_name`, `category_nameRU`, `photo`, `visible`) VALUES
 (3, 5, 1, 'all', '', '', 1),
-(5, 5, 2, 'she', '', '', 1),
-(8, 1, 2, 'weall', '', '', 1);
+(5, 5, 4, 'she', '', '', 1),
+(8, 1, 8, 'weall', '', '', 1),
+(9, 14, 9, 'arzan', 'укеап', 'category_photo_1636453295112.png', 1);
 
 -- --------------------------------------------------------
 
@@ -230,11 +230,11 @@ CREATE TABLE `katalog` (
 
 INSERT INTO `katalog` (`id`, `bolum_id`, `katalog_name`, `katalog_nameRU`, `photo`, `visible`, `tertip_nomer`) VALUES
 (1, 5, 'snake', '', '', 1, 0),
-(2, 2, 'cow', '', '', 1, 0),
 (4, 2, 'chicken', '', '', 1, 0),
-(5, 1, 'shark', '', '', 0, 0),
-(7, 2, 'sed', '', '', 1, 0),
-(8, 5, 'smartech', '', '', 1, 9999);
+(7, 2, 'sed', '', '', 0, 0),
+(8, 5, 'smartech', 'вкепарик', 'katalog_photo_1636451752706.png', 1, 9999),
+(9, 1, 'amatly', '', 'katalog_photo_1636446811056.png', 1, 9999),
+(11, 1, 'sarpa', '', 'katalog_photo_1636447198285.png', 1, 9999);
 
 -- --------------------------------------------------------
 
@@ -441,9 +441,9 @@ CREATE TABLE `sellers` (
 --
 
 INSERT INTO `sellers` (`id`, `login`, `password`, `type`, `shop_id`, `Access`) VALUES
-(1, 'sadyyan', '$2b$10$InMf8HOedcxeQ8W5qTyFnOilID9aXApYvYRqTG3fxRAdBhha7aLmG', 'sowda', 1, 1),
-(2, 'jasur', '$2b$10$WhLTzGIZmfMZCufUExkTquS63qclYRjWeaQ87.9LepzmMvqpLX.fm', 'sowda', 2, 1),
-(4, 'murad', '$2b$10$FNB5ciEXOw1UHrPULu3gO.SiWwDrGRXUy3Momikehpt9kDSe828by', 'hyzmat', 3, 1);
+(11, 'jasur', '$2b$10$ulXcmZMuFu8R2qywfUO.UueYhdAaqk6R9crgYJfJYeolB.rcaqF2C', 'hyzmat', 17, 0),
+(12, 'murad', '$2b$10$w83ABEQMvEpGHQhSKPCAdufUW26kwTnSKkQCcWVuLq/PvEK7rqwdK', 'sowda', 18, 0),
+(13, 'sadyyan', '$2b$10$RYStvSLhl6uOzxhcDCMA3.JINl5jw/NPt.l5Hrum.DUm.0EhKKB/W', 'hyzmat', 19, 0);
 
 -- --------------------------------------------------------
 
@@ -549,8 +549,9 @@ CREATE TABLE `shop` (
 --
 
 INSERT INTO `shop` (`id`, `shop_name`, `description`, `descriptionRU`, `phone`, `address`, `adressRU`, `photo`, `modified`, `email`, `website`, `insta`, `imo`, `vip`, `Access`, `owner_name`, `owner_familya`, `owner_ochestvo`, `owners_phone`, `second_phone`, `dostawka`, `mugt_dostawka`, `min_dostawka_toleg`, `dostawka_tolegi`, `gelip_almak`) VALUES
-(1, 'gulzemin', 'Yanymyzdaky sowda merkez!', '', '+99365616320', 'Taslamada', '', 'c://', '2021-08-18 18:18:33', 'gulzemin@g.tm', 'gulzemin.com', 'serg.vfdsgw/[p2lw', 'imo adress', 1, 0, '', '', '', '63', '', 0, 0, 0, 0, 0),
-(2, 'alperi', 'gowysy girme', '', '+9936xxxxxxx', 'niredir bir yer', '', 'c://', '2021-08-25 19:07:15', 'yalkym.com@g.tm', 'yalkym.com', 'insta address', 'imo address', 1, 0, '', '', '', '62', '', 0, 0, 0, 0, 0);
+(17, 'Gala', '', '', '', '', '', '', '2021-11-08 18:08:22', '', '', '', '', 0, 0, '', '', '', '', '', 0, 0, 0, 0, 0),
+(18, 'faberlic', '', '', '', '', '', '', '2021-11-08 18:09:39', '', '', '', '', 0, 0, '', '', '', '', '', 0, 0, 0, 0, 0),
+(19, 'facebook', '', '', '', '', '', '', '2021-11-08 18:10:44', '', '', '', '', 0, 0, '', '', '', '', '', 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -741,9 +742,9 @@ CREATE TABLE `subcategory` (
 --
 
 INSERT INTO `subcategory` (`id`, `bolum_id`, `katalog_id`, `category_id`, `subcategory_name`, `subcategory_nameRU`, `visible`) VALUES
-(1, 1, 2, 2, 'coca-cola', '', 1),
-(2, 1, 2, 2, 'zip', '', 1),
-(3, 13, 5, 8, 'malakasos', '', 1);
+(2, 2, 11, 9, 'zip', '', 1),
+(3, 13, 8, 8, 'malakasos', '', 1),
+(4, 13, 8, 8, 'branda', 'лрпмшнлр', 1);
 
 -- --------------------------------------------------------
 
@@ -894,7 +895,8 @@ ALTER TABLE `bolum_shop`
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `category_name` (`category_name`);
 
 --
 -- Indexes for table `collections`
@@ -1095,7 +1097,7 @@ ALTER TABLE `bolum_shop`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `collections`
@@ -1119,7 +1121,7 @@ ALTER TABLE `follow`
 -- AUTO_INCREMENT for table `katalog`
 --
 ALTER TABLE `katalog`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `like_products`
@@ -1173,7 +1175,7 @@ ALTER TABLE `saylanan_items`
 -- AUTO_INCREMENT for table `sellers`
 --
 ALTER TABLE `sellers`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `service_catalog`
@@ -1197,7 +1199,7 @@ ALTER TABLE `service_shops`
 -- AUTO_INCREMENT for table `shop`
 --
 ALTER TABLE `shop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `shop_category`
@@ -1239,7 +1241,7 @@ ALTER TABLE `size`
 -- AUTO_INCREMENT for table `subcategory`
 --
 ALTER TABLE `subcategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
