@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 09, 2021 at 12:50 PM
+-- Generation Time: Nov 13, 2021 at 05:42 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -121,18 +121,6 @@ INSERT INTO `bolum` (`id`, `bolum_name`, `bolum_nameRU`, `photo`, `tertip_nomer`
 (5, 'egin-eşik', 'одежда', 'bolum_photo_1636098007896.png', 2, 1),
 (13, 'sport', 'спорт', 'bolum_photo_1636099976040.png', 999, 0),
 (14, 'kosmetika', '', 'bolum_photo_1636100041066.png', 999, 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `bolum_shop`
---
-
-CREATE TABLE `bolum_shop` (
-  `id` int(11) NOT NULL,
-  `bolum_id` int(11) NOT NULL,
-  `shop_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -443,7 +431,8 @@ CREATE TABLE `sellers` (
 INSERT INTO `sellers` (`id`, `login`, `password`, `type`, `shop_id`, `Access`) VALUES
 (11, 'jasur', '$2b$10$ulXcmZMuFu8R2qywfUO.UueYhdAaqk6R9crgYJfJYeolB.rcaqF2C', 'hyzmat', 17, 0),
 (12, 'murad', '$2b$10$w83ABEQMvEpGHQhSKPCAdufUW26kwTnSKkQCcWVuLq/PvEK7rqwdK', 'sowda', 18, 0),
-(13, 'sadyyan', '$2b$10$RYStvSLhl6uOzxhcDCMA3.JINl5jw/NPt.l5Hrum.DUm.0EhKKB/W', 'hyzmat', 19, 0);
+(13, 'sadyyan', '$2b$10$RYStvSLhl6uOzxhcDCMA3.JINl5jw/NPt.l5Hrum.DUm.0EhKKB/W', 'hyzmat', 19, 0),
+(23, 'guwanc', '$2b$10$zyV5e.89N6m9ezUGVDLrTON3v.cAZARGmy984dVTiWK7Z0dAfNJLC', 'hyzmat', 30, 0);
 
 -- --------------------------------------------------------
 
@@ -550,8 +539,22 @@ CREATE TABLE `shop` (
 
 INSERT INTO `shop` (`id`, `shop_name`, `description`, `descriptionRU`, `phone`, `address`, `adressRU`, `photo`, `modified`, `email`, `website`, `insta`, `imo`, `vip`, `Access`, `owner_name`, `owner_familya`, `owner_ochestvo`, `owners_phone`, `second_phone`, `dostawka`, `mugt_dostawka`, `min_dostawka_toleg`, `dostawka_tolegi`, `gelip_almak`) VALUES
 (17, 'Gala', '', '', '', '', '', '', '2021-11-08 18:08:22', '', '', '', '', 0, 0, '', '', '', '', '', 0, 0, 0, 0, 0),
-(18, 'faberlic', '', '', '', '', '', '', '2021-11-08 18:09:39', '', '', '', '', 0, 0, '', '', '', '', '', 0, 0, 0, 0, 0),
-(19, 'facebook', '', '', '', '', '', '', '2021-11-08 18:10:44', '', '', '', '', 0, 0, '', '', '', '', '', 0, 0, 0, 0, 0);
+(18, 'faberlic', '', '', '', '', '', '', '2021-11-08 18:09:39', '', '', '', '', 0, 1, '', '', '', '', '', 0, 0, 0, 0, 0),
+(19, 'facebook', '', '', '', '', '', '', '2021-11-08 18:10:44', '', '', '', '', 0, 0, '', '', '', '', '', 0, 0, 0, 0, 0),
+(30, 'ebook', '', '', '', '', '', '', '2021-11-13 13:08:26', '', '', '', '', 0, 0, '', '', '', '', '', 0, 0, 0, 0, 0),
+(32, 'ebook1', '', '', '', '', '', '', '2021-11-13 13:09:00', '', '', '', '', 0, 0, '', '', '', '', '', 0, 0, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shop_bolum`
+--
+
+CREATE TABLE `shop_bolum` (
+  `id` int(11) NOT NULL,
+  `bolum_id` int(11) NOT NULL,
+  `shop_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -886,12 +889,6 @@ ALTER TABLE `bolum`
   ADD UNIQUE KEY `bolum_name` (`bolum_name`) USING BTREE;
 
 --
--- Indexes for table `bolum_shop`
---
-ALTER TABLE `bolum_shop`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
@@ -1005,6 +1002,13 @@ ALTER TABLE `shop`
   ADD UNIQUE KEY `shop_name` (`shop_name`);
 
 --
+-- Indexes for table `shop_bolum`
+--
+ALTER TABLE `shop_bolum`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `shop_id` (`shop_id`);
+
+--
 -- Indexes for table `shop_category`
 --
 ALTER TABLE `shop_category`
@@ -1088,12 +1092,6 @@ ALTER TABLE `bolum`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT for table `bolum_shop`
---
-ALTER TABLE `bolum_shop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
@@ -1175,7 +1173,7 @@ ALTER TABLE `saylanan_items`
 -- AUTO_INCREMENT for table `sellers`
 --
 ALTER TABLE `sellers`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `service_catalog`
@@ -1199,7 +1197,13 @@ ALTER TABLE `service_shops`
 -- AUTO_INCREMENT for table `shop`
 --
 ALTER TABLE `shop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT for table `shop_bolum`
+--
+ALTER TABLE `shop_bolum`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `shop_category`
