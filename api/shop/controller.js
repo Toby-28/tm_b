@@ -22,13 +22,21 @@ module.exports= {
         })
     },
     patch: (req, res)=>{
-        patch(req.body, req.params.id, (error, result)=>{
-            if (error) {
-                console.log(error.sqlMessage+'\n'+error.sql)
-                return res.json(error)
-            }
-            return res.json(result)
-        })
+        if (req.file) {
+            req.body.photo= req.file.filename
+        }
+        let keys= Object.keys(req.body)
+        let results
+        keys.forEach(element => {
+            patch(element, req.body[element], req.params.id, (error, result)=>{
+                if (error) {
+                    console.log(error.sqlMessage+'\n'+error.sql)
+                    return res.json(error)
+                }
+                results= result
+            })
+        });
+        return res.json(results)
     },
     delet: (req, res)=>{
         delet(req.params.id, (error, result)=>{

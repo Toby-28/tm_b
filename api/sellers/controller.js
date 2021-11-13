@@ -34,8 +34,17 @@ module.exports= {
                     console.log(error.sql+'\n'+error.sqlMessage)
                     return res.json(error)
                 }
-                token= sign({result: result}, process.env.TOKENSECRETKEY, {expiresIn: process.env.TOKENEXPIREAT})
-                res.json(token)
+                let token= sign({result: result}, process.env.TOKENSECRETKEY, {expiresIn: process.env.TOKENEXPIREAT})
+                sellers_get(req.body,(error, result)=>{
+                    if (error) {
+                        console.log(error.sql+'\n'+error.sqlMessage)
+                        return res.json(error)
+                    }
+                    return res.json({
+                        token: token,
+                        shop_id: result[0].shop_id
+                    })
+                })
             })
         })
     },

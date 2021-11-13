@@ -24,15 +24,16 @@ module.exports= {
                 return cb(error, result)
             })
     },
-    patch: (data, id, cb)=>{
+    patch: (key, value, id, cb)=>{
         pool.query(
-            `update shop
-             set
-                ?
+            `update
+                shop
+            set
+                ${key}=?
             where
                 id=${id}`,
             [
-                data
+                value
             ],
             (error, result)=>{
                 return cb(error, result)
