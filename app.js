@@ -6,6 +6,7 @@ const express= require('express'),
     ads_amin= require('./api/ads_admin/router.js'),
     ads_fromshops= require('./api/ads_fromshops/router'),
     sa= require('./superadmin/sa.router'),
+    banner= require('./api/banner/router'),
     bolum= require('./api/bolum/router'),
     katalog= require('./api/katalog/router'),
     category= require('./api/category/router'),
@@ -27,6 +28,7 @@ app.use(cors())
 app.use('/ads_admin', ads_amin)
 app.use('/ads_fromshops', ads_fromshops)
 app.use('/sa', sa)
+app.use('/banner', banner)
 app.use('/bolum', bolum)
 app.use('/katalog', katalog)
 app.use('/category', category)
