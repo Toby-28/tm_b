@@ -7,6 +7,7 @@ const express= require('express'),
     ads_fromshops= require('./api/ads_fromshops/router'),
     sa= require('./superadmin/sa.router'),
     banner= require('./api/banner/router'),
+    banner_shop= require('./api/banner_shop/router'),
     bolum= require('./api/bolum/router'),
     katalog= require('./api/katalog/router'),
     category= require('./api/category/router'),
@@ -29,6 +30,7 @@ app.use('/ads_admin', ads_amin)
 app.use('/ads_fromshops', ads_fromshops)
 app.use('/sa', sa)
 app.use('/banner', banner)
+app.use('/banner_shop', banner_shop)
 app.use('/bolum', bolum)
 app.use('/katalog', katalog)
 app.use('/category', category)
