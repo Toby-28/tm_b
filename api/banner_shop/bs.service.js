@@ -3,13 +3,11 @@ const pool= require('../../config/db')
 //post requesti shop doredilende ulanmaly
 
 module.exports= {
-    patch_photo: (data, id, cb)=>{
+    patch_photo: (filename, id, cb)=>{
         pool.query(
-            `update banner_shop
-            set photo=?
-            where id=?`,
+            `update banner_shop set photo=? where id=?`,
             [
-                data.filename,
+                filename,
                 id
             ],
             (error, result)=>{
