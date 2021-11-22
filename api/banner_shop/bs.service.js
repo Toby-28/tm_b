@@ -21,7 +21,7 @@ module.exports= {
             (error, result)=>{
                 if(error) cb(error, false)
                 pool.query(
-                    `update banner_shop set photo=? where order=? and shop_id=?`,
+                    `update banner_shop set photo=? where order=? AND shop_id=?`,
                     [result[0].photo,order,shop_id],
                     (error, result)=>{
                         return cb(error, result)

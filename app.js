@@ -47,6 +47,6 @@ app.use('/shop_products', shop_products)
 app.use('/size', size)
 app.use('/image', express.static('images'))
 
-app.listen(process.env.apiport,()=>{
+app.listen(process.env.apiport || 3099,()=>{
     console.log(`port ${process.env.apiport}`)
 })
