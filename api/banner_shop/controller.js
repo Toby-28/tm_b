@@ -14,7 +14,7 @@ module.exports= {
     },
     sup_admin_patch_photo: (req, res)=>{
         // suraty gocurmeli!!!
-        sup_admin_patch_photo(req.params.id, req.params.order, req.params.shop_id, (error, result)=>{
+        sup_admin_patch_photo(req.params.id, req.params.tertip, req.params.shop_id, (error, result)=>{
             if(error){
                 console.log(error.sql+'\n'+error.sqlMessage)
                 return res.status(500).json(error)

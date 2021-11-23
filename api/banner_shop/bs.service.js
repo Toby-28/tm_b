@@ -14,15 +14,15 @@ module.exports= {
                 return cb(error, result)
             })
     },
-    sup_admin_patch_photo: (id, order, shop_id, cb)=>{
+    sup_admin_patch_photo: (id, tertip, shop_id, cb)=>{
         pool.query(
             `select photo from banner_shop_m where id=?`,
             [id],
             (error, result)=>{
                 if(error) cb(error, false)
                 pool.query(
-                    `update banner_shop set photo=? where order=? AND shop_id=?`,
-                    [result[0].photo,order,shop_id],
+                    `update banner_shop set photo=? where tertip=? and shop_id=?`,
+                    [result[0].photo,tertip,shop_id],
                     (error, result)=>{
                         return cb(error, result)
                     })
