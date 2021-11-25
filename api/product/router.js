@@ -1,10 +1,11 @@
 const router= require('express').Router()
-const { get, getId, post, patch, delet}= require('./controller')
+const { post, sup_admin_post, patch}= require('./controller')
  
-router.get('/', get)
-router.get('/id', getId)
+router.get('/', )
+router.get('/id', )
 router.post('/', post)
-router.patch('/', patch)
-router.delete('/', delet)
+router.post('/sup_admin', sup_admin_post)
+router.patch('/:id', patch)
+router.delete('/', )
 
 module.exports= router
