@@ -1,5 +1,3 @@
-const pool = require('../../config/db')
-
 const {post, sup_admin_post, patch}= require('./product.service'),
     keys= ['product_name','product_nameru','description','descriptionru','old_price',
             'aksiya','aksiya_text','aksiya_textru','arzanladys','garasarna','garasarna_time',
@@ -37,17 +35,15 @@ module.exports= {
         })
     },
     patch: (req, res)=>{
-        const keys= Object.keys(req.body),
-            results= {}
+        const keys= Object.keys(req.body)
         keys.forEach(element=>{
             patch(element, req.body[element], req.params.id, (error, result)=>{
                 if(error){
                     console.log(error.sql+'\n'+error.sqlMessage)
                     return res.status(500).json(error)
                 }
-                results= result
             })
         })
-        return res.json(results)
+        // return res.json()
     }
 }

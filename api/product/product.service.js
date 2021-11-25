@@ -1,6 +1,6 @@
 const pool= require('../../config/db')
 
-//
+// razmer
 
 module.exports= {
     post: (data, cb)=>{
